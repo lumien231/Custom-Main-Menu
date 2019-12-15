@@ -9,15 +9,16 @@ public class ActionConnectToServer implements IAction
 	String ip;
 	String serverName;
 
-	public ActionConnectToServer(String ip)
+	public ActionConnectToServer(String ip, String serverName)
 	{
 		this.ip = ip;
+		this.serverName = serverName;
 	}
 
 	@Override
 	public void perform(Object source, GuiCustom menu)
 	{
-		ServerData serverData = new ServerData(null, ip, false);
+		ServerData serverData = new ServerData(this.serverName, this.ip, false);
 		FMLClientHandler.instance().setupServerList();
 		FMLClientHandler.instance().connectToServer(menu, serverData);
 	}

@@ -600,7 +600,7 @@ public class GuiConfig
 		}
 		else if (actionType.equalsIgnoreCase("connectToServer"))
 		{
-			return new ActionConnectToServer(actionObject.get("ip").getAsString());
+			return new ActionConnectToServer(actionObject.get("ip").getAsString(), actionObject.get("serverName") != null ? actionObject.get("serverName").getAsString() : "Minecraft Server");
 		}
 		else if (actionType.equalsIgnoreCase("openGui"))
 		{
