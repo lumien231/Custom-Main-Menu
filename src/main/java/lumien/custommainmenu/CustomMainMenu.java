@@ -25,7 +25,7 @@ public class CustomMainMenu
 {
 	public static final String MOD_ID = "custommainmenu";
 	public static final String MOD_NAME = "Custom Main Menu";
-	public static final String MOD_VERSION = "@VERSION@";
+	public static final String MOD_VERSION = "1.0";
 
 	@Instance(value = MOD_ID)
 	public static CustomMainMenu INSTANCE;
