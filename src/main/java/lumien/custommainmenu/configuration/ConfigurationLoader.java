@@ -1,24 +1,18 @@
 package lumien.custommainmenu.configuration;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import lumien.custommainmenu.CustomMainMenu;
-import lumien.custommainmenu.gui.GuiCustom;
-
-import org.apache.commons.io.IOUtils;
-
 import com.google.common.io.ByteStreams;
-import com.google.common.io.Files;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+import lumien.custommainmenu.CustomMainMenu;
+import lumien.custommainmenu.gui.GuiCustom;
+import org.apache.commons.io.IOUtils;
+
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 public class ConfigurationLoader
 {
@@ -71,49 +65,23 @@ public class ConfigurationLoader
 		
 		// Preload Main Menu so that other menus can rely on it
 		
-		for (File guiFile : jsonFiles)
-		{
-			if (guiFile.getName().equals("mainmenu.json"))
-			{
+		for (File guiFile : jsonFiles) {
+			if (guiFile.getName().equals("mainmenu.json")) {
 				GuiConfig guiConfig = new GuiConfig();
 				String name = guiFile.getName().replace(".json", "");
 
-				JsonReader reader = null;
-				try
-				{
-					reader = new JsonReader(new FileReader(guiFile));
-				}
-				catch (FileNotFoundException e)
-				{
-					e.printStackTrace();
-				}
-				try
-				{
+				try (
+						InputStream is = Files.newInputStream(guiFile.toPath());
+						InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+						JsonReader reader = new JsonReader(isr)
+				) {
 					JsonElement jsonElement = jsonParser.parse(reader);
 					JsonObject jsonObject = jsonElement.getAsJsonObject();
-
 					guiConfig.load(name, jsonObject);
 				}
-				catch (Exception e)
-				{
-					try
-					{
-						reader.close();
-					}
-					catch (IOException io)
-					{
-						io.printStackTrace();
-					}
+				catch (Exception e) {
+					e.printStackTrace();
 					throw e;
-				}
-
-				try
-				{
-					reader.close();
-				}
-				catch (IOException io)
-				{
-					io.printStackTrace();
 				}
 
 				this.config.addGui(guiConfig.name, new GuiCustom(guiConfig));
