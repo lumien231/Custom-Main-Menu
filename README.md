@@ -1,5 +1,5 @@
 # Patched Main Menu
-### Fork of \[https\://github.com/lumien231/Custom-Main-Menu]\(Custom Main Menu)
+### Fork of [Custom Main Menu](https://github.com/lumien231/Custom-Main-Menu)
 This is a simple set of critical patches collected during the use of this mod:
 * Uploading all file types in UTF-8 format.
     (Previously, the standard system encoding was used)
