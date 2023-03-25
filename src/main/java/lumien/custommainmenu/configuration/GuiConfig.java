@@ -645,7 +645,7 @@ public class GuiConfig
 			String textString = getStringPlease(element);
 			if (textString.startsWith("web:"))
 			{
-				String url = textString.substring(4, textString.length());
+				String url = textString.substring(4);
 
 				TextURL tURL = new TextURL(url, -1);
 				
